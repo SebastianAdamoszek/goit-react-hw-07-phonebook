@@ -1,31 +1,40 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
-import { getContacts } from '../../redux/selectors';
-import React, { useEffect } from 'react';
-import { nanoid } from 'nanoid'; 
+import { addContact } from '../../redux/operations';
+import { selectContacts } from '../../redux/selectors';
+import { Notify } from 'notiflix';
+import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 
- const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]
-  );
-  
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = event => {
     event.preventDefault();
     const form = event.target;
-    const name = form.elements.name.value;
-    const number = form.elements.number.value;
-    const id = nanoid();
- 
-    dispatch(addContact({ id, name, number }));
+
+    let isContact;
+    contacts.forEach(person => {
+      if (form.name.value.toLowerCase() === person.name.toLowerCase()) {
+        isContact = true;
+      }
+    });
+    isContact
+      ? Notify.warning(`${form.name.value} is already in your Contacts.`, {
+          timeout: 3000,
+          position: 'left-top',
+          closeButton: true,
+        })
+      : dispatch(
+          addContact({
+            id: nanoid(),
+            name: form.name.value,
+            phone: form.number.value,
+          })
+        );
     form.reset();
   };
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -39,7 +48,7 @@ import css from './ContactForm.module.css';
           placeholder="Enter name"
           autoComplete="name"
           required
-        
+
         />
       </label>
       <label>
@@ -52,7 +61,7 @@ import css from './ContactForm.module.css';
           placeholder="Enter name"
           autoComplete="name"
           required
-         
+
         />
       </label>
       <button className={css.button__add} type="submit">

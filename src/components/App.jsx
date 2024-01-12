@@ -1,11 +1,10 @@
-
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import image from '../image/image.module.css';
 
-const App = () => {
-   return (
+export const App = () => {
+  return (
     <div
       className={image.background}
       style={{
@@ -32,9 +31,7 @@ const App = () => {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm
-     
-        />
+        <ContactForm />
       </div>
       <div
         style={{
@@ -57,7 +54,4 @@ const App = () => {
       </div>
     </div>
   );
-      };
-
-
-export default App;
+};

@@ -54,6 +54,7 @@ export const App = () => {
               overflow: 'auto',
               maxHeight: '650px',
               paddingLeft: '10px',
+
             }}
           >
             <ContactList />

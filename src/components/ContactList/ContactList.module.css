@@ -12,6 +12,7 @@
 
 }
 .button__del {
+  margin-right: 15px;
   transition: 200ms ease-in-out;
   &:hover {
     background-color: rgba(255, 0, 0, 0.7);

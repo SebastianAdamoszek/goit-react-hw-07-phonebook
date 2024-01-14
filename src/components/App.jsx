@@ -48,8 +48,16 @@ export const App = () => {
           <Filter />
         </div>
         <div>
-          <h2 style={{ marginTop: '25px' }}>Contact list</h2>
-          <ContactList />
+          <h2>Contact list</h2>
+          <div
+            style={{
+              overflow: 'auto',
+              maxHeight: '650px',
+              paddingLeft: '10px',
+            }}
+          >
+            <ContactList />
+          </div>
         </div>
       </div>
     </div>
